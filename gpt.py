@@ -1,7 +1,17 @@
 import requests
+import os
 
-# Set your API key
-API_KEY = "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"
+
+def warn(text):
+  print("\033[38;5;1m" + "\033[1m" + text + "\u001b[0m ") 
+
+try:
+  # Set your API key
+  API_KEY = os.environ['OPENAI_API_KEY']
+except:
+  warn("OPENAI_API_KEY environment variable not set on this computer") 
+  exit()
+
 
 # Set the model and prompt
 MODEL = "text-davinci-003"
@@ -22,7 +32,7 @@ params = {
 headers = {
   "Content-Type": "application/json",
   "Authorization": f"Bearer {API_KEY}"
-}
+} 
 
 # Make the request
 response = requests.post(
@@ -32,4 +42,7 @@ response = requests.post(
 )
 
 # Print the response
-print(response.json()['choices'][0]['text'])
+if not response.json()['error']:
+  print(response.json()['choices'])
+else:
+  warn(response.json()['error']['message'])
