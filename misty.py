@@ -17,6 +17,9 @@ class Misty:
             headers={"Content-Type": "application/json"}
         )
 
+    def display_image(self, filename, alpha):
+        self.post("image/display", {"filename": filename, "alpha" : alpha})
+
 
 Chuck = Misty("172.22.174.127")
 
