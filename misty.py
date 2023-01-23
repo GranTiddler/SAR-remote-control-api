@@ -69,4 +69,4 @@ class Misty:
 
 Chuck = Misty("172.22.174.127")
 
-print(Chuck.delete("images",{"FileName" : "diglett.png"}))
+print(Chuck.get_image_list().json())
