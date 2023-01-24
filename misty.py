@@ -39,6 +39,26 @@ class Misty:
 
     def display_image(self, filename, alpha):
         return self.post("image/display", {"FileName": filename, "Alpha": alpha})
+    
+    def audio(self, filename, data, immediatelyapply, overwriteexisting):
+       return self.post({"FileName": filename, "Data": data, "ImmediatelyApply": immediatelyapply, "OverwriteExisting": overwriteexisting})
+
+    def images(self, filename, data, width, height, immediatelyapply, overwriteexisting):
+        return self.post({"FileName": filename, "Data": data, "Width": width, "Height": height, "ImmediatelyApply": immediatelyapply, "OverwriteExisting": overwriteexisting})
+    
+    #def #video goes here :P
+
+    def led(self, red, green, blue):
+        return self.post({"red": red, "green": green, "blue": blue})
+
+    def videos_display(self, url, layer):
+        return self.post({"URL": url, "Layer": layer})
+
+    def webviews_display(self, url):
+        return self.post({"URL": url})
+
+    def pause_audio(self,):
+        return self.post({  })
 
     def get_image_list(self):
         return self.get("images/list")
