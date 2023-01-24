@@ -65,6 +65,9 @@ class Misty:
 
     def get_blink_settings(self):
         return self.get("blink/settings")
+    
+    def play_audio(self, filename):
+        return self.post("audio/play", {"FileName": filename})
 
 
 Chuck = Misty("172.22.174.127")
