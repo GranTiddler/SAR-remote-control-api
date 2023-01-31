@@ -77,6 +77,32 @@ class Misty:
     
     def set_blink_settings(self, blinkimages, openeyeminms, openeyemaxms, closedeyeminms, closedeyemaxms, reverttodefault):
         return self.post("blink/settings", {"BlinkImages": blinkimages, "OpenEyeMinMs": openeyeminms, "OpenEyeMaxMs": openeyemaxms, "ClosedEyeMinMs": closedeyeminms, "ClosedEyeMaxMs": closedeyemaxms, "RevertToDefault": reverttodefault})
+    
+    def speak(self, text, flush, utteranceid):
+        return self.post("tts/speak", {"Text": text, "Flush": flush, "UtteranceId": utteranceid})
+    
+    def transition_led(self, red, green, blue, red2, green2, blue2, transitiontype, timems):
+        return self.post("led/transition", {"Red": red, "Green": green, "Blue": blue, "Red2": red2, "Green2": green2, "Blue2": blue2, "TransitionType": transitiontype, "TimeMS": timems})
+    
+    def set_display_settings(self, on):
+        return self.post("display/settings", {"On": on})
+    
+    def set_flashlight(self, on,):
+        return self.post("flashlight", {"On": on})
+    
+    def set_image_display_settings(self, layer, size, weight, style, wrap, horizontalalignment, verticalalignment, red, green, blue):
+        return self.post("images/settings", {"Layer": layer, "Size": size, "Style": style, "Wrap": wrap, "HorizontalAlignment": horizontalalignment, "VerticalAlignment": verticalalignment, "Red": red, "Green": green, "Blue": blue})
+    
+    def set_video_display_settings(self, layer, width, height, rotation, repeat):
+        return self.post("videos/settings", {"Layer": layer, "Width": width, "Height": height, "Rotation": rotation, "Repeat": repeat})
+    
+    def set_webview_display_settings(self, layer, visible):
+        return self.post("webviews/settings", {"Layer": layer, "Visible": visible})
+    
+    def send_external_request(self, method, resource, save, apply, filename):
+        return self.post("request", {"Method": method, "Resource": resource, "Save": save, "Apply": apply, "FileName": filename})
+    
+    
 
 
 Chuck = Misty("172.22.174.127")
