@@ -72,7 +72,7 @@ class Misty:
     def trigger_skills_event(self, skill, eventname, payload, customkey, anotherkey, source):
         return self.post("skills/event", {"Skill": skill, "EventName": eventname, "Payload": payload, "CustomKey": customkey, "AnotherKey": anotherkey, "Source": source})
     
-    def set_blink(blink):
+    def set_blink(self, blink):
         return self.post("blink", {"Blink": blink})
     
     def set_blink_settings(self, blinkimages, openeyeminms, openeyemaxms, closedeyeminms, closedeyemaxms, reverttodefault):
@@ -93,17 +93,25 @@ class Misty:
     def set_image_display_settings(self, layer, size, weight, style, wrap, horizontalalignment, verticalalignment, red, green, blue):
         return self.post("images/settings", {"Layer": layer, "Size": size, "Style": style, "Wrap": wrap, "HorizontalAlignment": horizontalalignment, "VerticalAlignment": verticalalignment, "Red": red, "Green": green, "Blue": blue})
     
-    def set_video_display_settings(self, layer, width, height, rotation, repeat):
-        return self.post("videos/settings", {"Layer": layer, "Width": width, "Height": height, "Rotation": rotation, "Repeat": repeat})
+    def set_video_display_settings(self, layer, width, height, rotation, repeat, reverttodefault, deleted, visible, opacity, stretch, placeontop, verticalalignment, horizontalalignment):
+        return self.post("videos/settings", {"Layer": layer, "Width": width, "Height": height, "Rotation": rotation, "Repeat": repeat, "RevertToDefault": reverttodefault, "Deleted": deleted, "Visible": visible, "Opacity": opacity, "Stretch": stretch, "PlaceOnTop": placeontop, "VerticalAlignment": verticalalignment, "HorizontalAlignment": horizontalalignment})
     
-    def set_webview_display_settings(self, layer, visible):
-        return self.post("webviews/settings", {"Layer": layer, "Visible": visible})
+    def set_webview_display_settings(self, layer, visible, reverttodefault, deleted, width, height, stretch, placeontop, horizontalalignment, verticalalignment):
+        return self.post("webviews/settings", {"Layer": layer, "Visible": visible, "RevertToDefault": reverttodefault, "Deleted": deleted, "Width": width, "Height": height, "Stretch": stretch, "PlaceOnTop": placeontop, "HorizontalAlignment": horizontalalignment, "VerticalAlignment": verticalalignment})
     
-    def send_external_request(self, method, resource, save, apply, filename):
-        return self.post("request", {"Method": method, "Resource": resource, "Save": save, "Apply": apply, "FileName": filename})
+    def send_external_request(self, method, resource, save, apply, filename, authorizationType, Token, Arguments, ContentType):
+        return self.post("request", {"Method": method, "Resource": resource, "Save": save, "Apply": apply, "FileName": filename, "authorizationType": authorizationType, "Token": Token, "Arguments": Arguments, "ContentType": ContentType})
     
     def drive(self, linearvelocity, angularvelocity):
         return self.post("drive", {"LinearVelocity": linearvelocity, "AngularVelocity": angularvelocity})
+    
+    def drive_arc(self, heading, radius, timems, reverse):
+        return self.post("drive/arc", {"Heading": heading, "Radius": radius, "TimeMs": timems, "Reverse": reverse})
+    
+    def drive_heading(self, heading, distance, timems, reverse):
+        return self.post("drive/hdt", {"Heading": heading, "Distance": distance, "TimeMs": timems, "Reverse": reverse})
+    
+
     
 
 
