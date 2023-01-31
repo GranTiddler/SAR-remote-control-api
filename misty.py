@@ -102,7 +102,10 @@ class Misty:
     def send_external_request(self, method, resource, save, apply, filename):
         return self.post("request", {"Method": method, "Resource": resource, "Save": save, "Apply": apply, "FileName": filename})
     
+    def drive(self, linearvelocity, angularvelocity):
+        return self.post("drive", {"LinearVelocity": linearvelocity, "AngularVelocity": angularvelocity})
     
+
 
 
 Chuck = Misty("172.22.174.127")
