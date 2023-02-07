@@ -66,8 +66,8 @@ class Misty:
     def get_blink_settings(self):
         return self.get("blink/settings")
     
-    def play_audio(self, filename):
-        return self.post("audio/play", {"FileName": filename})
+    def play_audio(self, filename, volume):
+        return self.post("audio/play", {"FileName": filename, "Volume": volume})
 
     def trigger_skills_event(self, skill, eventname, payload, customkey, anotherkey, source):
         return self.post("skills/event", {"Skill": skill, "EventName": eventname, "Payload": payload, "CustomKey": customkey, "AnotherKey": anotherkey, "Source": source})
@@ -84,8 +84,8 @@ class Misty:
     def transition_led(self, red, green, blue, red2, green2, blue2, transitiontype, timems):
         return self.post("led/transition", {"Red": red, "Green": green, "Blue": blue, "Red2": red2, "Green2": green2, "Blue2": blue2, "TransitionType": transitiontype, "TimeMS": timems})
     
-    def set_display_settings(self, on):
-        return self.post("display/settings", {"On": on})
+    def set_display_settings(self, reverttodefault):
+        return self.post("display/settings", {"RevertToDefault": reverttodefault})
     
     def set_flashlight(self, on,):
         return self.post("flashlight", {"On": on})
@@ -111,8 +111,91 @@ class Misty:
     def drive_heading(self, heading, distance, timems, reverse):
         return self.post("drive/hdt", {"Heading": heading, "Distance": distance, "TimeMs": timems, "Reverse": reverse})
     
+    def save_audio(self, filename, data, immediatelyapply, overwriteexisting):
+        return self.post("videos", {"FileName": filename, "Data": data, "ImmedatelyApply": immediatelyapply, "OverwriteExisting": overwriteexisting})
 
+    def drive_time(self, linearvelocity, angularvelocity, timems, degrees):
+        return self.post("drive/time", {"LinearVelcoity": linearvelocity, "AngularVelocity": angularvelocity, "TimeMS": timems, "Degrees": degrees})
+
+    def drive_track(self, lefttrackspeed, righttrackspeed):
+        return self.post("drive/track", {"LeftTrackSpeed": lefttrackspeed, "RightTrackSpeed": righttrackspeed})
+
+    def halt(self):
+        return self.post("halt",{})
+
+    def move_arm(self, arm, position, velocity, units):
+        return self.post("arms", {"Arm": arm, "Position": position, "Units": units, "Velocity": velocity})
+
+    def move_arms(self, leftarmposition, rightarmposition, leftarmvelocity, rightarmvelocity, units):
+        return self.post("arms/set", {"LeftArmPosition": leftarmposition, "RightArmPosition": rightarmposition, "LeftArmVelocity": leftarmvelocity, "RightArmVelocity": rightarmvelocity, "Units": units})
+
+    def move_head(self, pitch, roll, yaw, velocity, units, duration):
+        return self.post("head", {"Pitch": pitch, "Roll": roll, "Yaw": yaw, "Velocity": velocity, "Units": units, "Duration": duration})
     
+    def stop(self, hold):
+        return self.post("drive/stop", {"Hold": hold})
+    
+    def drive_to_location(self, destination):
+        return self.post("drive/coordinates", {"Destination": destination})
+    
+    def follow_path(self, path, velocity, fullspinduration, waypointaccuracy, rotatethreshold):
+        return self.post("drive/path", {"Path": path, "Velocity": velocity, "FullSpinDuration": fullspinduration, "WaypointAccuracy": waypointaccuracy, "RotateThreshold": rotatethreshold})
+    
+    def rename_slam_map(self, key, name):
+        return self.post("slam/map/rename", {"Key": key, "Name": name})
+    
+    def slam_reset(self, ):
+        return self.post("slam/reset", { })
+    
+    def set_current_slam_map(self, key):
+        return self.post("slam/map/current", {"Key": key})
+    
+    def set_slam_ir_exposure_gain(self, exposure, gain):
+        return self.post("slam/settings/ir", {"Exposure": exposure, "Gain": gain})
+    
+    def set_slam_visible_exposure_gain(self, exposure, gain):
+        return self.post("slam/settings/visible", {"Exposure": exposure, "Gain": gain})
+    
+    def start_locating_docking_station(self, startstreamingtimeout, enableirtimeout, enableautoexposure):
+        return self.post("slam/docking/start", {"StartStreamingTimeout": startstreamingtimeout, "EnableIrTimeout": enableirtimeout, "EnableAutoExposure": enableautoexposure})
+    
+    def start_mapping(self):
+        return self.post("slam/map/start", {})
+    
+    def start_slam_streaming(self):
+        return self.post("slam/streaming/start", {})
+    
+    def start_tracking(self):
+        return self.post("slam/track/start", {})
+    
+    def stop_locating_docking_station(self, stopstreamingtimeout, disableirtimeout):
+        return self.post("slam/docking/stop", {"StopStreamingTimeout": stopstreamingtimeout, "DisableIrTimeout": disableirtimeout})
+    
+    def stop_mapping(self):
+        return self.post("slam/map/stop", {})
+    
+    def stop_slam_streaming(self):
+        return self.post("slam/streaming/stop", {})
+    
+    def stop_tracking(self):
+        return self.post("slam/track/stop",{})
+    
+    def update_hazard_settings(self, reverttodefault, disabletimeofflights, disablebumpsensors, bumpsensorsenabled, sensorname, enabled, timeofflightthreshold, threshold):
+        return self.post("hazard/updatebasesettings", {"RevertToDefault": reverttodefault, "DisableTimeOfFlights": disabletimeofflights, "DisableBumpSensors": disablebumpsensors, "BumpSensorsEnabled": bumpsensorsenabled, "sensorName": sensorname, "enabled": enabled, "TimeOfFlightThreshold": timeofflightthreshold, "threshold": threshold})
+    
+    def cancel_face_training(self):
+        return self.post("faces/training/cancel", {})
+    
+    def capture_speech(self, requirekeyphrase, overwriteexisting, maxspeechlength, silencetimeout):
+        return self.post("audio/speech/capture", {"RequireKeyPhrase": requirekeyphrase, "OverwriteExisting": overwriteexisting, "MaxSpeechLength": maxspeechlength, "SilenceTimeout": silencetimeout})
+    
+    def capture_speech_azure(self, requirekeyphrase, overwriteexisting, maxspeechlength, silencetimeout, capturefile, speechrecognitionlanguage, azurespeechkey, azurespeechregion):
+        return self.post("audio/speech/capture", {"RequireKeyPhrase": requirekeyphrase, "OverwriteExisting": overwriteexisting, "MaxSpeechLength": maxspeechlength, "SilenceTimeout": silencetimeout, "CaptureFile": capturefile, "SpeechRecognitionLanguage": speechrecognitionlanguage, "AzureSpeechKey": azurespeechkey, "AzureSpeechRegion": azurespeechregion})
+    
+    
+    
+    
+
 
 
 
