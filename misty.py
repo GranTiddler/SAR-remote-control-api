@@ -39,6 +39,7 @@ class Misty:
 
     def display_image(self, filename, alpha):
         return self.post("image/display", {"FileName": filename, "Alpha": alpha})
+
     
     def save_audio(self, filename, data, immediatelyapply, overwriteexisting):
        return self.post("audio", {"FileName": filename, "Data": data, "ImmediatelyApply": immediatelyapply, "OverwriteExisting": overwriteexisting})
@@ -48,11 +49,22 @@ class Misty:
     
     #def #save_video goes here :P
 
-    def change_led(self, red, green, blue):
-        return self.post("led", {"red": red, "green": green, "blue": blue})
 
     def videos_display(self, url, layer):
         return self.post("videos/display", {"URL": url, "Layer": layer})
+
+    def get_image_list(self):
+        return self.get("images/list")
+
+    def get_blink_settings(self):
+        return self.get("blink/settings")
+
+    def audio(self, filename, data, immediatelyapply, overwriteexisting):
+        return self.post({"FileName": filename, "Data": data, "ImmediatelyApply": immediatelyapply, "OverwriteExisting": overwriteexisting})
+
+    def change_led(self, red, green, blue):
+        return self.post("led", {"red": red, "green": green, "blue": blue})
+
 
     def webviews_display(self, url):
         return self.post("webviews/display", {"URL": url})
@@ -60,8 +72,11 @@ class Misty:
     def pause_audio(self,):
         return self.post("audio/pause", {  })
 
-    def get_image_list(self):
-        return self.get("images/list")
+
+    #! Skill management stuff
+    def cancel_skill(self, skill):
+        return self.post("skills/cancel", {"Skill": skill})
+
 
     def get_blink_settings(self):
         return self.get("blink/settings")
@@ -198,7 +213,27 @@ class Misty:
 
 
 
+    def delete_skill(self, skill):
+        return self.delete("skills", {"Skill": skill})
+
+
+    def get_running_skills(self):
+        return self.get("skills/running")
+
+    def get_skills(self):
+        return self.get("skills")
+
+    def load_skill(self, skill):
+        return self.post("skills/load", {"Skill": skill})
+        
+    def reload_skills(self):
+        return self.post("skills/reload")
+
+    def run_skill(self, skill):
+        return self.post("skills/start", {"Skill": skill})
+
+    def upload_skill(self, file, run_immedeiately, overwrite):
+        return self.post("skills", {"File" : file, "ImmedeatelyApply" : run_immedeiately, "OverwriteExisting" : overwrite})
+
 
 Chuck = Misty("172.22.174.127")
-
-print(Chuck.delete("images",{"FileName" : "diglett.png"}))
