@@ -206,16 +206,9 @@ class Misty:
     
     def capture_speech_azure(self, requirekeyphrase, overwriteexisting, maxspeechlength, silencetimeout, capturefile, speechrecognitionlanguage, azurespeechkey, azurespeechregion):
         return self.post("audio/speech/capture", {"RequireKeyPhrase": requirekeyphrase, "OverwriteExisting": overwriteexisting, "MaxSpeechLength": maxspeechlength, "SilenceTimeout": silencetimeout, "CaptureFile": capturefile, "SpeechRecognitionLanguage": speechrecognitionlanguage, "AzureSpeechKey": azurespeechkey, "AzureSpeechRegion": azurespeechregion})
-    
-    
-    
-    
-
-
 
     def delete_skill(self, skill):
         return self.delete("skills", {"Skill": skill})
-
 
     def get_running_skills(self):
         return self.get("skills/running")
@@ -235,5 +228,25 @@ class Misty:
     def upload_skill(self, file, run_immedeiately, overwrite):
         return self.post("skills", {"File" : file, "ImmedeatelyApply" : run_immedeiately, "OverwriteExisting" : overwrite})
 
+    def capture_speech_vosk(self, requirekeyphrase, overwriteexisting, maxspeechlength, silencetimeout):
+        return self.post("audio/speech/capturevosk", {"RequireKeyPhrase": requirekeyphrase, "OverwriteExisting": overwriteexisting, "MaxSpeechLength": maxspeechlength, "SilenceTimeout": silencetimeout})
+
+    def rename_video_recording(self, oldname, newname):
+        return self.post("videos/recoridng/rename", {"OldName": oldname, "NewName": newname})
+
+    def start_ar_tag_detector(self, dictionary, tagsizemm):
+        return self.post("artags/detection/start", {"Dictionary": dictionary, "TagSizeMm": tagsizemm})
+
+    def start_av_streaming(self, url, width, height, framerate, bitrate, audiobitrate, audiosampleratehz, username, password):
+        return self.post("avstreaming/start", {"URL": url, "Width": width, "Height": height, "FrameRate": framerate, "BitRate": bitrate, "AudioBitRate": audiobitrate, "AudioSampleRateHz": audiosampleratehz, "Username": username, "Password": password})
+
+    def start_face_detection(self):
+        return self.post("faces/detection/start", {})
+
+    def start_face_training(self, faceid):
+        return self.post("faces/training/start", {"FaceId": faceid})
+
+    def start_face_recognition(self):
+        return("face/recognition/start", {})
 
 Chuck = Misty("172.22.174.127")
