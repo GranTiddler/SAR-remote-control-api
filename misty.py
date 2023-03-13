@@ -248,5 +248,12 @@ class Misty:
 
     def start_face_recognition(self):
         return("face/recognition/start", {})
+    
+    def start_keyphrase_recognition(self, capturespeech, maxspeechlength, overwriteexisting, silencetimeout):
+        return self.post("audio/keyprhase/start", {"CaptureSpeech": capturespeech, "MaxSpeechLength": maxspeechlength, "OverwriteExisting": overwriteexisting, "SilenceTimeout": silencetimeout})
+    
+    def start_keyphrase_recognition_azure(self, capturespeech, maxspeechlength, overwriteexisting, silencetimeout, capturefile, speechrecognitionlanguage, azurespeechkey, azurespeechregion):
+        return self.post("audio/keyprhase/startazure", {"CaptureSpeech": capturespeech, "MaxSpeechLength": maxspeechlength, "OverwriteExisting": overwriteexisting, "SilenceTimeout": silencetimeout, "CaptureFile": capturefile, "SpeechRecognitionLanguage": speechrecognitionlanguage, "AzureSpeechKey": azurespeechkey, "AzureSpeechRegion": azurespeechregion})
+    
 
 Chuck = Misty("172.22.174.127")
