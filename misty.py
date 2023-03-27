@@ -255,5 +255,51 @@ class Misty:
     def start_keyphrase_recognition_azure(self, capturespeech, maxspeechlength, overwriteexisting, silencetimeout, capturefile, speechrecognitionlanguage, azurespeechkey, azurespeechregion):
         return self.post("audio/keyprhase/startazure", {"CaptureSpeech": capturespeech, "MaxSpeechLength": maxspeechlength, "OverwriteExisting": overwriteexisting, "SilenceTimeout": silencetimeout, "CaptureFile": capturefile, "SpeechRecognitionLanguage": speechrecognitionlanguage, "AzureSpeechKey": azurespeechkey, "AzureSpeechRegion": azurespeechregion})
     
+    def start_keyphrase_recognition_vosk(self, capturespeech, maxspeechlength, overwriteexisting, silencetimeout):
+        return self.post("audio/keyphrase/startvosk", {"CaptureSpeech": capturespeech, "MaxSpeechLength": maxspeechlength, "OverwriteExisting": overwriteexisting, "SilenceTimeout": silencetimeout})
+
+    def start_object_detection(self, minimumconfidence, modelid, maximumtrackerhistory):
+        return self.post("object/detection/start", {"MinimumConfidence": minimumconfidence, "ModelId": modelid, "MaximumTrackerHistory": maximumtrackerhistory})
+
+    def start_recording_audio(self, filename):
+        return self.post("audio/record/start", {"FileName": filename})
+
+    def start_recording_video(self, filename, mute, duration, width, height):
+        return self.post("videos/recordings/start", {"FileName": filename, "Mute": mute, "Duration": duration, "Width": width, "Height": height})
+
+    def start_video_streaming(self, port, rotation, width, height, quality, overlay):
+        return self.post("videostreaming/start", {"Port": port, "Rotation": rotation, "Width": width, "Height": height, "Quality": quality, "Overlay": overlay})
+    
+    def stop_ar_tag_detector(self):
+        return self.post("artags/detection/stop",{})
+    
+    def stop_av_streaming(self):
+        return self.post("avstreaming/stop",{})
+    
+    def stop_face_detection(self):
+        return self.post("faces/detection/stop", {})
+    
+    def stop_face_recognition(self):
+        return self.post("faces/recognition/stop",{})
+    
+    def stop_keyphrase_recognition(self):
+        return self.post("audio/keyphrase/stop", {})
+    
+    def stop_recording_audio(self):
+        return self.post("audio/record/stop",{})
+    
+    def stop_object_detection(self):
+        return self.post("objects/detection/stop",{})
+    
+    def stop_recording_video(self):
+        return self.post("videos/recording/stop",{})
+    
+    def stop_video_streaming(self):
+        return self.post("videostreaming/stop", {})
+    
+    def take_picture(self, base64, filename, width, height, displayonscreen, overwriteexisting):
+        return self.get("cameras/rgb", {"Base64": base64, "FileName": filename, "Width": width, "Height": height, "DisplayOnScreen": displayonscreen, "OverwriteExisting": overwriteexisting})
+    
+    
 
 Chuck = Misty("172.22.174.127")
